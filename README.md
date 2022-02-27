@@ -2,6 +2,12 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Rules
+
+- Only admins can create new quotes
+- Only admins can delete quotes
+- Only authenticated users can view the quotes
+
 ## Run the app in the development mode
 
 ```shell

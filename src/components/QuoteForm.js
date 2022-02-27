@@ -1,16 +1,12 @@
 import { useState } from 'react'
-import { useAuthContext } from '../hooks/useAuthContext'
+import { useToken } from '../hooks/useToken'
 
 import './QuoteForm.css'
 
 export default function QuoteForm() {
   const [author, setAuthor] = useState('')
   const [text, setText] = useState('')
-  const [token, setToken] = useState(null)
-
-  const { user } = useAuthContext()
-
-  user.getIdToken().then((token) => setToken(token))
+  const { token } = useToken()
 
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -32,39 +28,37 @@ export default function QuoteForm() {
     fetch(
       'https://react-node-on-fire.herokuapp.com/api/quotes/create',
       requestOptions
-    ).then((response) => {
-      if (response.status === 200) {
-        window.location.href = '/'
-      } else {
-        alert(response.message)
-      }
-    })
+    )
+      .then((response) => {
+        if (response.status === 201) {
+          window.location.href = '/'
+        }
+      })
+      .catch((err) => console.log(err))
   }
 
   return (
-    <>
-      <form onSubmit={handleSubmit} className='quote-form'>
-        <label>
-          <span>Author:</span>
-          <input
-            type='text'
-            required
-            onChange={(e) => setAuthor(e.target.value)}
-            value={author}
-          />
-        </label>
-        <label>
-          <span>Quote:</span>
-          <input
-            className='quote-area'
-            type='textarea'
-            required
-            onChange={(e) => setText(e.target.value)}
-            value={text}
-          />
-        </label>
-        <button className='btn'>Add Quote</button>
-      </form>
-    </>
+    <form onSubmit={handleSubmit} className='quote-form'>
+      <label>
+        <span>Author:</span>
+        <input
+          type='text'
+          required
+          onChange={(e) => setAuthor(e.target.value)}
+          value={author}
+        />
+      </label>
+      <label>
+        <span>Quote:</span>
+        <input
+          className='quote-area'
+          type='textarea'
+          required
+          onChange={(e) => setText(e.target.value)}
+          value={text}
+        />
+      </label>
+      <button className='btn'>Add Quote</button>
+    </form>
   )
 }

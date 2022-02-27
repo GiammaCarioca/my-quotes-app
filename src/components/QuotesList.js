@@ -1,22 +1,16 @@
 import { useState, useEffect, useCallback } from 'react'
 import { useAdmin } from '../hooks/useAdmin'
+import { useToken } from '../hooks/useToken'
 
 import Trashcan from '../assets/trashcan.svg'
 
-import { useAuthContext } from '../hooks/useAuthContext'
-
 function QuotesList() {
   const [data, setData] = useState(null)
-  const [token, setToken] = useState(null)
-
   const { isAdmin } = useAdmin()
-  const { user } = useAuthContext()
-
-  user.getIdToken().then((token) => setToken(token))
+  const { token } = useToken()
 
   const fetchQuotes = useCallback(() => {
     const options = {
-      method: 'GET',
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${token}`,
@@ -28,6 +22,7 @@ function QuotesList() {
     fetch('https://react-node-on-fire.herokuapp.com/api/quotes', options)
       .then((res) => res.json())
       .then((data) => setData(data))
+      .catch((err) => console.log(err))
   }, [token])
 
   useEffect(() => {
@@ -44,11 +39,13 @@ function QuotesList() {
       body: JSON.stringify({
         id,
       }),
-    }).then((response) => {
-      if (response.ok) {
-        fetchQuotes()
-      }
     })
+      .then((response) => {
+        if (response.ok) {
+          fetchQuotes()
+        }
+      })
+      .catch((err) => console.log(err))
   }
 
   if (data && data.length === 0) {

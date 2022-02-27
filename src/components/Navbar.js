@@ -32,7 +32,9 @@ export default function Navbar() {
 
             {user && (
               <>
-                <li className='display-name'>hello, {user.displayName}</li>
+                <li className='display-name'>
+                  hello, {user.displayName ? user.displayName : 'stranger'}
+                </li>
 
                 {isAdmin && (
                   <li>
