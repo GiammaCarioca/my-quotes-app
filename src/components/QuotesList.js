@@ -25,7 +25,7 @@ function QuotesList() {
 
     if (!token) return
 
-    fetch('/api/quotes', options, { mode: 'cors' })
+    fetch('https://react-node-on-fire.herokuapp.com/api/quotes', options)
       .then((res) => res.json())
       .then((data) => setData(data))
   }, [token])
@@ -35,7 +35,7 @@ function QuotesList() {
   }, [fetchQuotes])
 
   const handleClick = (id) => {
-    fetch(`/api/quotes/${id}`, {
+    fetch(`https://react-node-on-fire.herokuapp.com/api/quotes/${id}`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',

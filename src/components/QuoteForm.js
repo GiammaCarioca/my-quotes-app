@@ -29,7 +29,10 @@ export default function QuoteForm() {
 
     if (!token) return
 
-    fetch('/api/quotes/create', requestOptions).then((response) => {
+    fetch(
+      'https://react-node-on-fire.herokuapp.com/api/quotes/create',
+      requestOptions
+    ).then((response) => {
       if (response.status === 200) {
         window.location.href = '/'
       } else {
