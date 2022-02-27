@@ -1,3 +1,4 @@
+import { useHistory } from 'react-router-dom'
 import { useState } from 'react'
 import { useToken } from '../hooks/useToken'
 
@@ -7,6 +8,8 @@ export default function QuoteForm() {
   const [author, setAuthor] = useState('')
   const [text, setText] = useState('')
   const { token } = useToken()
+
+  const history = useHistory()
 
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -31,7 +34,7 @@ export default function QuoteForm() {
     )
       .then((response) => {
         if (response.status === 201) {
-          window.location.href = '/'
+          history.push('/')
         }
       })
       .catch((err) => console.log(err))
