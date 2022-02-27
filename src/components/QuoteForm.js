@@ -29,15 +29,13 @@ export default function QuoteForm() {
 
     if (!token) return
 
-    fetch('http://localhost:3001/api/quotes/create', requestOptions).then(
-      (response) => {
-        if (response.status === 200) {
-          window.location.href = '/'
-        } else {
-          alert(response.message)
-        }
+    fetch('/api/quotes/create', requestOptions).then((response) => {
+      if (response.status === 200) {
+        window.location.href = '/'
+      } else {
+        alert(response.message)
       }
-    )
+    })
   }
 
   return (
