@@ -25,7 +25,7 @@ function QuotesList() {
 
     if (!token) return
 
-    fetch('/api/quotes', options, { mode: 'cors' })
+    fetch('http://localhost:3001/api/quotes', options, { mode: 'cors' })
       .then((res) => res.json())
       .then((data) => setData(data))
   }, [token])
@@ -35,7 +35,7 @@ function QuotesList() {
   }, [fetchQuotes])
 
   const handleClick = (id) => {
-    fetch(`/api/quotes/${id}`, {
+    fetch(`http://localhost:3001/api/quotes/${id}`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
