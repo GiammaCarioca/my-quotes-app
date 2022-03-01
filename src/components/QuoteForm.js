@@ -53,9 +53,8 @@ export default function QuoteForm() {
       </label>
       <label>
         <span>Quote:</span>
-        <input
+        <textarea
           className='quote-area'
-          type='textarea'
           required
           onChange={(e) => setText(e.target.value)}
           value={text}
