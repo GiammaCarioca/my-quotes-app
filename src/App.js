@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom'
+import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom'
 import { useAuthContext } from './hooks/useAuthContext'
 import { useAdmin } from './hooks/useAdmin'
 
@@ -23,24 +23,24 @@ function App() {
         <BrowserRouter>
           <Navbar />
           <div className='container'>
-            <Switch>
-              <Route exact path='/'>
-                {!user && <Redirect to='/login' />}
-                {user && <Home />}
-              </Route>
-              <Route path='/login'>
-                {user && <Redirect to='/' />}
-                {!user && <Login />}
-              </Route>
-              <Route path='/signup'>
-                {user && <Redirect to='/' />}
-                {!user && <Signup />}
-              </Route>
-              <Route path='/create'>
-                {!isAdmin && <Redirect to='/' />}
-                {isAdmin && <Create />}
-              </Route>
-            </Switch>
+            <Routes>
+              <Route
+                path='/'
+                element={user ? <Home /> : <Navigate to='/login' />}
+              ></Route>
+              <Route
+                path='/login'
+                element={user ? <Navigate to='/' /> : <Login />}
+              ></Route>
+              <Route
+                path='/signup'
+                element={user ? <Navigate to='/' /> : <Signup />}
+              ></Route>
+              <Route
+                path='/create'
+                element={isAdmin ? <Create /> : <Navigate to='/' />}
+              ></Route>
+            </Routes>
           </div>
         </BrowserRouter>
       )}

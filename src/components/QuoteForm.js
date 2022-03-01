@@ -1,4 +1,4 @@
-import { useHistory } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 import { useToken } from '../hooks/useToken'
 
@@ -9,7 +9,7 @@ export default function QuoteForm() {
   const [text, setText] = useState('')
   const { token } = useToken()
 
-  const history = useHistory()
+  const navigate = useNavigate()
 
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -34,7 +34,7 @@ export default function QuoteForm() {
     )
       .then((response) => {
         if (response.status === 201) {
-          history.push('/')
+          navigate('/')
         }
       })
       .catch((err) => console.log(err))
